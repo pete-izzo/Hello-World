@@ -8,5 +8,6 @@
 
 ## Requirements 
 
-##### :white_check_mark: Apache Ant
-##### :white_check_mark: Apache Tomcat
+##### :white_check_mark: Java 8
+##### :white_check_mark: Apache Ant v 1.9
+##### :white_check_mark: Apache Tomcat v 8.5
