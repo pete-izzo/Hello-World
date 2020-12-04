@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.*;
 import java.lang.*;
+import static java.lang.System.*;
 import java.io.*;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
@@ -21,9 +22,6 @@ import java.nio.charset.StandardCharsets;
 public class ReverseServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.setContentType("text/css");
-
-        PrintWriter out = response.getWriter();
         
         String fname = request.getParameter("testText");
 
@@ -32,23 +30,47 @@ public class ReverseServlet extends HttpServlet {
         //key is "userText" value is "fname"
         HttpSession session = request.getSession();
         session.setAttribute("userText", fname);
+
+        //if a comma(s) is present in the submission
+        //this will create an array-list that contains and
+        //seperates all elements  
+        if (fname.indexOf(',')!= -1 ) {
+            StringTokenizer st = new StringTokenizer(fname, ",");
+
+            List<String> elements = new ArrayList<String>();
+
+            while (st.hasMoreTokens()) {
+
+
+                elements.add(st.nextToken());
+
+            }
+
+            session.setAttribute("CSV", elements);
+
+        //if no commas are present reverse the string
+        } else {
+            
+            //get bytes method to convert string
+            //fname into bytes
+            byte[] fnameBytes = fname.getBytes();
+            byte [] result = new byte[fnameBytes.length];
+
+            //store result in reverse order into the result byte[]
+            for (int i = 0; i < fnameBytes.length; i++)
+                result[i] = fnameBytes[fnameBytes.length - i - 1];
+            
+            //save result as a new string names output
+            String output = new String(result, StandardCharsets.UTF_8);
+
+            //save reversed string as a new session attribute 
+            session.setAttribute("reversedString", output);
+
+        }
+
+        response.sendRedirect ("hello.jsp");
+
         
-        //get bytes method to convert string
-        //fname into bytes
-        byte[] fnameBytes = fname.getBytes();
-        byte [] result = new byte[fnameBytes.length];
-
-        //store result in reverse order into the result byte[]
-        for (int i = 0; i < fnameBytes.length; i++)
-            result[i] = fnameBytes[fnameBytes.length - i - 1];
-        
-        //save result as a new string names output
-        String output = new String(result, StandardCharsets.UTF_8);
-
-        //save reversed string as a new session attribute 
-        session.setAttribute("reversedString", output);
-
-        response.sendRedirect("hello.jsp");
 
         // session.setAttribute()
         // // convert String to character array

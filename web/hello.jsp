@@ -22,8 +22,21 @@ body {
 </head>
 <body>
  
-    <h1>Here is what you typed ${userText}></h1>
-    <h1>Here is what you typed...but in reverse: ${reversedString}</h1>
+    <h1>Here is what you typed ${userText}</h1>
+    <!--If there isn't a comma present in userText will reverse order-->
+    <c:if test="${!fn:contains(userText, ',')}">
+        <h1>Here is what you typed...but in reverse: ${reversedString}</h1>
+    </c:if>
+
+    <!--If a comma is present in userText print lines seperately-->
+    <c:if test="${fn:contains(userText, ',')}">
+        <h1>Everything get's printed seperately:</h1>
+        <c:forEach items="${CSV}" var="element">
+            <h5>${element}</h5>
+        </c:forEach>
+    </c:if>
+    
+    
     <c:out value="TEXT USING JSTL"/>
 
     <c:set var="foo" scope="session" value="${fn:split(reversedString, '')}" />
