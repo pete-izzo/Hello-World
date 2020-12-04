@@ -23,19 +23,25 @@ public class ReverseServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         
-        String fname = request.getParameter("testText");
+        String randText = request.getParameter("testText");
+
+        String name1 = request.getParameter("name1");
+        String name2 = request.getParameter("name1");
+        String name3 = request.getParameter("name1");
+        String name4 = request.getParameter("name1");
+        String name5 = request.getParameter("name1");
 
 
         // gets session and sets and attribute with a key-value pair
-        //key is "userText" value is "fname"
+        //key is "userText" value is "randText"
         HttpSession session = request.getSession();
-        session.setAttribute("userText", fname);
+        session.setAttribute("userText", randText);
 
         //if a comma(s) is present in the submission
         //this will create an array-list that contains and
         //seperates all elements  
-        if (fname.indexOf(',')!= -1 ) {
-            StringTokenizer st = new StringTokenizer(fname, ",");
+        if (randText.indexOf(',')!= -1 ) {
+            StringTokenizer st = new StringTokenizer(randText, ",");
 
             List<String> elements = new ArrayList<String>();
 
@@ -52,13 +58,13 @@ public class ReverseServlet extends HttpServlet {
         } else {
             
             //get bytes method to convert string
-            //fname into bytes
-            byte[] fnameBytes = fname.getBytes();
-            byte [] result = new byte[fnameBytes.length];
+            //randText into bytes
+            byte[] randTextBytes = randText.getBytes();
+            byte [] result = new byte[randTextBytes.length];
 
             //store result in reverse order into the result byte[]
-            for (int i = 0; i < fnameBytes.length; i++)
-                result[i] = fnameBytes[fnameBytes.length - i - 1];
+            for (int i = 0; i < randTextBytes.length; i++)
+                result[i] = randTextBytes[randTextBytes.length - i - 1];
             
             //save result as a new string names output
             String output = new String(result, StandardCharsets.UTF_8);
@@ -68,6 +74,14 @@ public class ReverseServlet extends HttpServlet {
 
         }
 
+        Employee pObj = new Person();
+        pObj.setFirstName();
+        pObj.setLastName();
+
+        for(int i = 1; i)
+
+        session.setAttribute("person", pObj);
+
         response.sendRedirect ("hello.jsp");
 
         
@@ -75,7 +89,7 @@ public class ReverseServlet extends HttpServlet {
         // session.setAttribute()
         // // convert String to character array
         // // by using toCharArray
-        // char[] try1 = fname.toCharArray();
+        // char[] try1 = randText.toCharArray();
 
         // for (int i = try1.length - 1; i >= 0; i--)
         //     System.out.print(try1[i]);
