@@ -31,9 +31,12 @@ body {
     <!--If a comma is present in userText print lines seperately-->
     <c:if test="${fn:contains(userText, ',')}">
         <h1>Everything get's printed seperately:</h1>
-        <c:forEach items="${CSV}" var="element">
-            <h5>${element}</h5>
-        </c:forEach>
+        <ul>
+            <c:forEach items="${CSV}" var="element">
+            <li>${element}</li>
+            </c:forEach>
+        </ul>
+        
     </c:if>
     
     
