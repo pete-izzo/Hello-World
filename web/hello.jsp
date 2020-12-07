@@ -49,6 +49,19 @@ body {
         
     </c:if>
     <br>
-    <p>${testPerson.getFirstName()}</p>
+    <h5>Some People</h5>
+    <table>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
+        <c:forEach begin="0" end="${testPerson.size()}" varStatus="loop">
+            <tr>
+                <th>${testPerson[index].getFirstName()}</th>
+                <th>${testPerson[index].getLastName()}</th>
+            </tr>
+        </c:forEach>
+    </table>
+    <p>${testPerson[0].getFirstName()} ${testPerson[0].getLastName()}</p>
 </body>
 </html>

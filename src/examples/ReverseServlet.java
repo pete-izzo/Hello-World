@@ -114,9 +114,10 @@ public class ReverseServlet extends HttpServlet {
         names.add(person3);
         names.add(person4);
         names.add(person5);
+        
 
 
-        session.setAttribute("testPerson", person1);
+        session.setAttribute("testPerson", names);
 
         response.sendRedirect ("hello.jsp");
 
