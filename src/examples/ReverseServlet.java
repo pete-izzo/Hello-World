@@ -26,10 +26,19 @@ public class ReverseServlet extends HttpServlet {
         String randText = request.getParameter("testText");
 
         String name1 = request.getParameter("name1");
-        String name2 = request.getParameter("name1");
-        String name3 = request.getParameter("name1");
-        String name4 = request.getParameter("name1");
-        String name5 = request.getParameter("name1");
+        String[] result1 = name1.split(" ");
+
+        String name2 = request.getParameter("name2");
+        String[] result2 = name2.split(" ");
+
+        String name3 = request.getParameter("name3");
+        String[] result3 = name3.split(" ");
+
+        String name4 = request.getParameter("name4");
+        String [] result4 = name4.split(" ");
+
+        String name5 = request.getParameter("name5");
+        String [] result5 = name5.split(" ");
 
 
         // gets session and sets and attribute with a key-value pair
@@ -74,13 +83,40 @@ public class ReverseServlet extends HttpServlet {
 
         }
 
-        Employee pObj = new Person();
-        pObj.setFirstName();
-        pObj.setLastName();
+        ArrayList<Object> names = new ArrayList<Object>();
 
-        for(int i = 1; i)
+        Person testPerson = new Person();
+        testPerson.setFirstName("Max");
+        testPerson.setLastName("Power");
 
-        session.setAttribute("person", pObj);
+        Person person1 = new Person();
+        person1.setFirstName(result1[0]);
+        person1.setLastName(result1[1]);
+
+        Person person2 = new Person();
+        person2.setFirstName(result2[0]);
+        person2.setLastName(result2[1]);
+
+        Person person3 = new Person();
+        person3.setFirstName(result3[0]);
+        person3.setLastName(result3[1]);
+
+        Person person4 = new Person();
+        person4.setFirstName(result4[0]);
+        person4.setLastName(result4[1]);
+
+        Person person5 = new Person();
+        person5.setFirstName(result5[0]);
+        person5.setLastName(result5[1]);
+
+        names.add(person1);
+        names.add(person2);
+        names.add(person3);
+        names.add(person4);
+        names.add(person5);
+
+
+        session.setAttribute("testPerson", person1);
 
         response.sendRedirect ("hello.jsp");
 
