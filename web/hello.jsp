@@ -14,6 +14,10 @@ body {
     background-image:
         url('https://i.pinimg.com/originals/e9/bd/71/e9bd71bac8e86ffa192dec224a3ee16f.png');
 }
+
+table, th, td {
+  border: 1px solid black;
+}
 </style>
  
 <head>
@@ -39,9 +43,6 @@ body {
         
     </c:if>
     
-    
-    <c:out value="TEXT USING JSTL"/>
-
     <c:set var="foo" scope="session" value="${fn:split(reversedString, '')}" />
     <c:if test="${fn:length(reversedString) > 8}">
         <br>
@@ -49,19 +50,19 @@ body {
         
     </c:if>
     <br>
-    <h5>Some People</h5>
     <table>
+        <caption>Employee Names</caption>
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
         </tr>
-        <c:forEach begin="0" end="${testPerson.size()}" varStatus="loop">
+        <!-- Loops through testPerson obj assigned in Servlet and prints names to seperate rows-->
+        <c:forEach begin="0" end="${testPerson.size()-1}" varStatus="loop">
             <tr>
-                <th>${testPerson[index].getFirstName()}</th>
-                <th>${testPerson[index].getLastName()}</th>
+                <th>${testPerson[loop.index].getFirstName()}</th>
+                <th>${testPerson[loop.index].getLastName()}</th>
             </tr>
         </c:forEach>
     </table>
-    <p>${testPerson[0].getFirstName()} ${testPerson[0].getLastName()}</p>
 </body>
 </html>
