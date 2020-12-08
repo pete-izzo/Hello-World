@@ -26,7 +26,7 @@ public class ReverseServlet extends HttpServlet {
         
         String randText = request.getParameter("testText");
 
-        //KEEPING THE BELOW CODE UNCOMMENTED WILL CAUSE ISSUES
+        //KEEPING THE BELOW CODE UNCOMMENTED WILL CAUSE ISSUES WITH NEW LOOP
 
         // String name1 = request.getParameter("name1");
         // String[] result1 = name1.split(" ");
@@ -43,69 +43,103 @@ public class ReverseServlet extends HttpServlet {
         // String name5 = request.getParameter("name5");
         // String [] result5 = name5.split(" ");
 
-
+        
         // gets session and sets and attribute with a key-value pair
         //key is "userText" value is "randText"
         HttpSession session = request.getSession();
-        session.setAttribute("userText", randText);
+
+        /**
+         * //////////////////////////////
+         * CODE BELOW IS COMMENTED OUT BECAUSE IT WAS 
+         * CAUSING ISSUES WITH NEW ENNUMERATOR. IF UNCOMMENTED BE SURE TO ALSO 
+         * UNCOMMENT INPUT FIELD IN index.jsp AND USE A TWO-WORD INPUT LIKE "Spongebob Squarepants"
+         * //////////////////////////////
+         */
+        // session.setAttribute("userText", randText);
 
         //if a comma(s) is present in the submission
         //this will create an array-list that contains and
         //seperates all elements  
-        if (randText.indexOf(',')!= -1 ) {
-            StringTokenizer st = new StringTokenizer(randText, ",");
+        // if (randText.indexOf(',')!= -1 ) {
+        //     StringTokenizer st = new StringTokenizer(randText, ",");
 
-            List<String> elements = new ArrayList<String>();
+        //     List<String> elements = new ArrayList<String>();
 
-            while (st.hasMoreTokens()) {
+        //     while (st.hasMoreTokens()) {
 
 
-                elements.add(st.nextToken());
+        //         elements.add(st.nextToken());
 
-            }
+        //     }
 
-            session.setAttribute("CSV", elements);
+        //     session.setAttribute("CSV", elements);
 
-        //if no commas are present reverse the string
-        } else {
+        // //if no commas are present reverse the string
+        // } else {
             
-            //get bytes method to convert string
-            //randText into bytes
-            byte[] randTextBytes = randText.getBytes();
-            byte [] result = new byte[randTextBytes.length];
+        //     //get bytes method to convert string
+        //     //randText into bytes
+        //     byte[] randTextBytes = randText.getBytes();
+        //     byte [] result = new byte[randTextBytes.length];
 
-            //store result in reverse order into the result byte[]
-            for (int i = 0; i < randTextBytes.length; i++)
-                result[i] = randTextBytes[randTextBytes.length - i - 1];
+        //     //store result in reverse order into the result byte[]
+        //     for (int i = 0; i < randTextBytes.length; i++)
+        //         result[i] = randTextBytes[randTextBytes.length - i - 1];
             
-            //save result as a new string names output
-            String output = new String(result, StandardCharsets.UTF_8);
+        //     //save result as a new string names output
+        //     String output = new String(result, StandardCharsets.UTF_8);
 
-            //save reversed string as a new session attribute 
-            session.setAttribute("reversedString", output);
+        //     //save reversed string as a new session attribute 
+        //     session.setAttribute("reversedString", output);
 
-        }
+        // }
 
         //THIS CODE IS DYNAMIC AND WILL PLACE AS MANY NAMES IN THE TABLE AS THERE ARE TEXT FIELDS
 
         ArrayList<Person> names = new ArrayList<Person>();
 
-        //GRABS THE ELEMENTS FOR ALL PARAMETERS NAMED 'NAME' AND STICKS THEM IN A STRING ARRAY
-        String allElements[] = request.getParameterValues("name");
+        /**
+         * ///////////////////////////////
+         * Code below goes through all input fields and 
+         * creates a new class instance each time.
+         * Better than the for-loop because now the 'name'
+         * of the jsp element doesn't have to be "name",
+         *  it can be numbered and it won't effect anything
+         * ///////////////////////////////
+         */   
+        
 
-        //ITERATE OVER THE ELEMENTS IN THE ARRAY
-        for(int i=0; i < allElements.length; i++) {
-            //FOR EACH ELEMENT, CREATE A NEW PERSON OBJ
+        Enumeration e = request.getParameterNames();
+ 
+        while(e.hasMoreElements()) {
+            Object obj = e.nextElement();
+            String fieldName = (String) obj;
+            String fieldValue = request.getParameter(fieldName);
+
             Person person = new Person();
-
-            //FOR EACH ELEMENT, GRAB THE VALUES SUBMITTED AND SPLIT THEM UP BY THE SPACE
-            // SET FIRST NAME AND LAST NAME ACCORDINGLY AND ADD THE FINAL PERSON TO THE ARRAY LIST
-            String[] result = allElements[i].split(" ");
+            String[] result = fieldValue.split(" ");
             person.setFirstName(result[0]);
             person.setLastName(result[1]);
             names.add(person);
 
         }
+
+        //GRABS THE ELEMENTS FOR ALL PARAMETERS NAMED 'NAME' AND STICKS THEM IN A STRING ARRAY
+        // String allElements[] = request.getParameterValues("name");
+
+        // //ITERATE OVER THE ELEMENTS IN THE ARRAY
+        // for(int i=0; i < allElements.length; i++) {
+        //     //FOR EACH ELEMENT, CREATE A NEW PERSON OBJ
+        //     Person person = new Person();
+
+        //     //FOR EACH ELEMENT, GRAB THE VALUES SUBMITTED AND SPLIT THEM UP BY THE SPACE
+        //     // SET FIRST NAME AND LAST NAME ACCORDINGLY AND ADD THE FINAL PERSON TO THE ARRAY LIST
+        //     String[] result = allElements[i].split(" ");
+        //     person.setFirstName(result[0]);
+        //     person.setLastName(result[1]);
+        //     names.add(person);
+
+        // }
 
 
         //CODE BELOW WORKS BUT ISNT DYNAMIC

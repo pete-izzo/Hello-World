@@ -26,11 +26,12 @@ table, th, td {
 </head>
 <body>
  
-    <h1>Here is what you typed ${userText}</h1>
-    <!--If there isn't a comma present in userText will reverse order-->
+    <!--UN COMMENT THIS TO SEE TEXT REVERSAL-->
+    <!-- <h1>Here is what you typed ${userText}</h1>
+    If there isn't a comma present in userText will reverse order
     <c:if test="${!fn:contains(userText, ',')}">
         <h1>Here is what you typed...but in reverse: ${reversedString}</h1>
-    </c:if>
+    </c:if> -->
 
     <!--If a comma is present in userText print lines seperately-->
     <c:if test="${fn:contains(userText, ',')}">
@@ -55,13 +56,14 @@ table, th, td {
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Index</th>
         </tr>
         <!-- Loops through testPerson obj assigned in Servlet and prints names to seperate rows-->
         <c:forEach begin="0" end="${testPerson.size()-1}" varStatus="loop">
             <tr>
                 <th>${testPerson[loop.index].getFirstName()}</th>
                 <th>${testPerson[loop.index].getLastName()}</th>
-            </tr>
+                <th>${testPerson[loop.index].getIndex()}</th>
         </c:forEach>
     </table>
 </body>
