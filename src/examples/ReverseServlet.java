@@ -6,6 +6,7 @@ package examples;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,20 +26,22 @@ public class ReverseServlet extends HttpServlet {
         
         String randText = request.getParameter("testText");
 
-        String name1 = request.getParameter("name1");
-        String[] result1 = name1.split(" ");
+        //KEEPING THE BELOW CODE UNCOMMENTED WILL CAUSE ISSUES
 
-        String name2 = request.getParameter("name2");
-        String[] result2 = name2.split(" ");
+        // String name1 = request.getParameter("name1");
+        // String[] result1 = name1.split(" ");
 
-        String name3 = request.getParameter("name3");
-        String[] result3 = name3.split(" ");
+        // String name2 = request.getParameter("name2");
+        // String[] result2 = name2.split(" ");
 
-        String name4 = request.getParameter("name4");
-        String [] result4 = name4.split(" ");
+        // String name3 = request.getParameter("name3");
+        // String[] result3 = name3.split(" ");
 
-        String name5 = request.getParameter("name5");
-        String [] result5 = name5.split(" ");
+        // String name4 = request.getParameter("name4");
+        // String [] result4 = name4.split(" ");
+
+        // String name5 = request.getParameter("name5");
+        // String [] result5 = name5.split(" ");
 
 
         // gets session and sets and attribute with a key-value pair
@@ -83,55 +86,64 @@ public class ReverseServlet extends HttpServlet {
 
         }
 
-        ArrayList<Object> names = new ArrayList<Object>();
+        //THIS CODE IS DYNAMIC AND WILL PLACE AS MANY NAMES IN THE TABLE AS THERE ARE TEXT FIELDS
 
-        Person testPerson = new Person();
-        testPerson.setFirstName("Max");
-        testPerson.setLastName("Power");
+        ArrayList<Person> names = new ArrayList<Person>();
 
-        Person person1 = new Person();
-        person1.setFirstName(result1[0]);
-        person1.setLastName(result1[1]);
+        //GRABS THE ELEMENTS FOR ALL PARAMETERS NAMED 'NAME' AND STICKS THEM IN A STRING ARRAY
+        String allElements[] = request.getParameterValues("name");
 
-        Person person2 = new Person();
-        person2.setFirstName(result2[0]);
-        person2.setLastName(result2[1]);
+        //ITERATE OVER THE ELEMENTS IN THE ARRAY
+        for(int i=0; i < allElements.length; i++) {
+            //FOR EACH ELEMENT, CREATE A NEW PERSON OBJ
+            Person person = new Person();
 
-        Person person3 = new Person();
-        person3.setFirstName(result3[0]);
-        person3.setLastName(result3[1]);
+            //FOR EACH ELEMENT, GRAB THE VALUES SUBMITTED AND SPLIT THEM UP BY THE SPACE
+            // SET FIRST NAME AND LAST NAME ACCORDINGLY AND ADD THE FINAL PERSON TO THE ARRAY LIST
+            String[] result = allElements[i].split(" ");
+            person.setFirstName(result[0]);
+            person.setLastName(result[1]);
+            names.add(person);
 
-        Person person4 = new Person();
-        person4.setFirstName(result4[0]);
-        person4.setLastName(result4[1]);
+        }
 
-        Person person5 = new Person();
-        person5.setFirstName(result5[0]);
-        person5.setLastName(result5[1]);
 
-        names.add(person1);
-        names.add(person2);
-        names.add(person3);
-        names.add(person4);
-        names.add(person5);
+        //CODE BELOW WORKS BUT ISNT DYNAMIC
+
+        // Person testPerson = new Person();
+        // testPerson.setFirstName("Max");
+        // testPerson.setLastName("Power");
+
+        // Person person1 = new Person();
+        // person1.setFirstName(result1[0]);
+        // person1.setLastName(result1[1]);
+
+        // Person person2 = new Person();
+        // person2.setFirstName(result2[0]);
+        // person2.setLastName(result2[1]);
+
+        // Person person3 = new Person();
+        // person3.setFirstName(result3[0]);
+        // person3.setLastName(result3[1]);
+
+        // Person person4 = new Person();
+        // person4.setFirstName(result4[0]);
+        // person4.setLastName(result4[1]);
+
+        // Person person5 = new Person();
+        // person5.setFirstName(result5[0]);
+        // person5.setLastName(result5[1]);
+
+        // names.add(person1);
+        // names.add(person2);
+        // names.add(person3);
+        // names.add(person4);
+        // names.add(person5);
         
 
 
         session.setAttribute("testPerson", names);
 
         response.sendRedirect ("hello.jsp");
-
-        
-
-        // session.setAttribute()
-        // // convert String to character array
-        // // by using toCharArray
-        // char[] try1 = randText.toCharArray();
-
-        // for (int i = try1.length - 1; i >= 0; i--)
-        //     System.out.print(try1[i]);
-        
-        // response.sendRedirect("hello.jsp");
-        // response.getWriter().println("Cool beans");
     }
 }
