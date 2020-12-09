@@ -131,7 +131,7 @@ public class ReverseServlet extends HttpServlet {
             String fieldName = (String) obj;
             String fieldValue = request.getParameter(fieldName);
 
-            if(fieldName.matches("name([0-9])")){
+            if(fieldName.matches("name'[\\d]'")){
 
                 Person person = new Person();
 

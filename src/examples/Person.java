@@ -15,7 +15,7 @@ import java.io.*;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
 
-public class Person{
+public class Person implements Comparable<Person>{
     private String firstName = null;
     private String lastName = null;
     //private static int nextIndex = 1;
@@ -47,6 +47,12 @@ public class Person{
 
     public void setIndex(String Index) {
         this.index = index;
+    }
+
+    @Override
+    public int compareTo(Person other){
+        int id = this.index.compareTo(other.index);
+        return id == 0 ? this.lastName.compareTo(other.lastName) : id;
     }
 
 
