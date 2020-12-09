@@ -59,7 +59,7 @@ table, th, td {
             <th>Index</th>
         </tr>
         <!-- Loops through testPerson obj assigned in Servlet and prints names to seperate rows-->
-        <c:forEach begin="0" end="${testPerson.size()-1}" varStatus="loop">
+        <c:forEach begin="0" end="${testPerson.size()}" varStatus="loop">
             <tr>
                 <th>${testPerson[loop.index].getFirstName()}</th>
                 <th>${testPerson[loop.index].getLastName()}</th>

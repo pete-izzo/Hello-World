@@ -18,20 +18,19 @@ import java.nio.charset.StandardCharsets;
 public class Person{
     private String firstName = null;
     private String lastName = null;
-    private static int nextIndex = 1;
-    private int index = 1;
+    //private static int nextIndex = 1;
+    private String index;
 
     public Person(){
-        index = nextIndex;
-        nextIndex++;
+        // index = nextIndex;
+        // nextIndex++;
     }
     public String getFirstName() {
         return firstName;
     }
 
     public String getIndex() {
-        String strIndex = Integer.toString(index);
-        return strIndex;
+        return index;
     }
 
     public String getLastName() {
@@ -44,6 +43,10 @@ public class Person{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public void setIndex(String Index) {
+        this.index = index;
     }
 
 

@@ -96,7 +96,21 @@ public class ReverseServlet extends HttpServlet {
 
         //THIS CODE IS DYNAMIC AND WILL PLACE AS MANY NAMES IN THE TABLE AS THERE ARE TEXT FIELDS
 
-        ArrayList<Person> names = new ArrayList<Person>();
+        //*****DONT DELETE*****
+         ArrayList<Person> names = new ArrayList<Person>();
+
+        /**
+         *  //////////////////////////////////////
+         *  Try a Sorted Set so I can:
+         *  A: Limit what gets saved
+         *  B: sort items based on certain criteria
+         *  //////////////////////////////////////
+         */
+
+        SortedSet<Person> newNames = new TreeSet<>();
+
+        //var personSet = new SortedSet<Person>;
+
 
         /**
          * ///////////////////////////////
@@ -116,15 +130,30 @@ public class ReverseServlet extends HttpServlet {
             String fieldName = (String) obj;
             String fieldValue = request.getParameter(fieldName);
 
-            Person person = new Person();
-            String[] result = fieldValue.split(" ");
-            person.setFirstName(result[0]);
-            person.setLastName(result[1]);
-            names.add(person);
+            if(fieldName == "name[0-9]"){
+
+                Person person = new Person();
+
+                String[] result = fieldValue.split(" ");
+                person.setFirstName(result[0]);
+                person.setLastName(result[1]);
+                person.setIndex(fieldName);
+                newNames.add(person);
+                //names.add(person);
+            } 
+
+            Iterator it = newNames.iterator();
+
+            while (it.hasNext()) {
+                Person guy = (Person) it.next();
+                names.add(guy);
+            }
+
+
 
         }
 
-        //GRABS THE ELEMENTS FOR ALL PARAMETERS NAMED 'NAME' AND STICKS THEM IN A STRING ARRAY
+        // GRABS THE ELEMENTS FOR ALL PARAMETERS NAMED 'NAME' AND STICKS THEM IN A STRING ARRAY
         // String allElements[] = request.getParameterValues("name");
 
         // //ITERATE OVER THE ELEMENTS IN THE ARRAY
@@ -177,6 +206,8 @@ public class ReverseServlet extends HttpServlet {
 
 
         session.setAttribute("testPerson", names);
+
+        //session.setAttribute("testPerson", personSet);
 
         response.sendRedirect ("hello.jsp");
     }
