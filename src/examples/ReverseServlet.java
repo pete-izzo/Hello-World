@@ -124,13 +124,14 @@ public class ReverseServlet extends HttpServlet {
         
 
         Enumeration e = request.getParameterNames();
+
  
         while(e.hasMoreElements()) {
             Object obj = e.nextElement();
             String fieldName = (String) obj;
             String fieldValue = request.getParameter(fieldName);
 
-            if(fieldName == "name[0-9]"){
+            if(fieldName.matches("name([0-9])")){
 
                 Person person = new Person();
 
@@ -206,6 +207,8 @@ public class ReverseServlet extends HttpServlet {
 
 
         session.setAttribute("testPerson", names);
+
+        session.setAttribute("SortedSet", newNames);
 
         //session.setAttribute("testPerson", personSet);
 
