@@ -19,7 +19,7 @@ public class Person {
     private String firstName = null;
     private String lastName = null;
     //private static int nextIndex = 1;
-    private int index;
+    private String index;
 
     public Person(){
         // index = nextIndex;
@@ -29,7 +29,7 @@ public class Person {
         return firstName;
     }
 
-    public int getIndex() {
+    public String getIndex() {
         return index;
     }
 
@@ -45,7 +45,7 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public void setIndex(int index) {
+    public void setIndex(String index) {
         this.index = index;
     }
 
@@ -59,11 +59,7 @@ public class Person {
     //     }
     // };
 
-    // @Override
-    // public int compareTo(Person other){
-    //     String compareiId = ((Person)other).getIndex();
-    //     return (this.index - compareiId);
-    // }
+    
 
 
 

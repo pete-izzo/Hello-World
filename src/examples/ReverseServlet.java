@@ -143,7 +143,7 @@ public class ReverseServlet extends HttpServlet {
             String[] result = fieldValue.split(" ");
             person.setFirstName(result[0]);
             person.setLastName(result[1]);
-            person.setIndex(Integer.parseInt(testNum[1]));
+            person.setIndex(testNum[1]);
             names.add(person);
             //names.add(person);
 
@@ -213,11 +213,16 @@ public class ReverseServlet extends HttpServlet {
         // names.add(person4);
         // names.add(person5);
         
-        names.sort(Comparator.comparing(Person.getIndex()));
+        //names.sort(Comparator.comparing(Person.getIndex()));
 
         //names.sort(PersonComparator);
 
-        //Collections.sort(names);
+        Collections.sort(names, new Comparator<Person>() {
+            @Override
+            public int compare(Person p1, Person p2){
+                return p1.getIndex().compareTo(p2.getIndex());
+            }
+        });
 
         session.setAttribute("testPerson", names);
 
