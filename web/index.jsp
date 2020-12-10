@@ -51,6 +51,7 @@
       <input type="text" required placeholder="Firstname Lastname" name="name7" id="name7">
       <br>
       
+      
       <input type="submit" value="Submit"> 
     </form>
     </body>
