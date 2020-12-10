@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.*;
 import java.lang.*;
 import static java.lang.System.*;
+import java.lang.Object;
+import java.util.Collections;
+import static java.util.Comparator.comparing;
 import java.io.*;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
@@ -121,7 +124,10 @@ public class ReverseServlet extends HttpServlet {
          *  it can be numbered and it won't effect anything
          * ///////////////////////////////
          */   
-        
+        int id = 1;
+        int something = id;
+        String strID = Integer.toString(something);
+        String el = "name".concat(strID);
 
         Enumeration e = request.getParameterNames();
 
@@ -130,25 +136,28 @@ public class ReverseServlet extends HttpServlet {
             Object obj = e.nextElement();
             String fieldName = (String) obj;
             String fieldValue = request.getParameter(fieldName);
+            Person person = new Person();
+            String[] testNum = fieldName.split("e");
+            //int thing = Integer.parseInt();
 
-            if(fieldName.matches("name'[\\d]'")){
+            String[] result = fieldValue.split(" ");
+            person.setFirstName(result[0]);
+            person.setLastName(result[1]);
+            person.setIndex(Integer.parseInt(testNum[1]));
+            names.add(person);
+            //names.add(person);
 
-                Person person = new Person();
+            // if(fieldName.equals("name" + strID)){
 
-                String[] result = fieldValue.split(" ");
-                person.setFirstName(result[0]);
-                person.setLastName(result[1]);
-                person.setIndex(fieldName);
-                newNames.add(person);
-                //names.add(person);
-            } 
+            //     Person person = new Person();
 
-            Iterator it = newNames.iterator();
-
-            while (it.hasNext()) {
-                Person guy = (Person) it.next();
-                names.add(guy);
-            }
+            //     String[] result = fieldValue.split(" ");
+            //     person.setFirstName(result[0]);
+            //     person.setLastName(result[1]);
+            //     names.add(person);
+            //     //names.add(person);
+            //     ++id;
+            // }
 
 
 
@@ -204,7 +213,11 @@ public class ReverseServlet extends HttpServlet {
         // names.add(person4);
         // names.add(person5);
         
+        names.sort(Comparator.comparing(Person.getIndex()));
 
+        //names.sort(PersonComparator);
+
+        //Collections.sort(names);
 
         session.setAttribute("testPerson", names);
 

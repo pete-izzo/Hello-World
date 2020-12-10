@@ -15,11 +15,11 @@ import java.io.*;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
 
-public class Person implements Comparable<Person>{
+public class Person {
     private String firstName = null;
     private String lastName = null;
     //private static int nextIndex = 1;
-    private String index;
+    private int index;
 
     public Person(){
         // index = nextIndex;
@@ -29,7 +29,7 @@ public class Person implements Comparable<Person>{
         return firstName;
     }
 
-    public String getIndex() {
+    public int getIndex() {
         return index;
     }
 
@@ -45,15 +45,25 @@ public class Person implements Comparable<Person>{
         this.lastName = lastName;
     }
 
-    public void setIndex(String Index) {
+    public void setIndex(int index) {
         this.index = index;
     }
 
-    @Override
-    public int compareTo(Person other){
-        int id = this.index.compareTo(other.index);
-        return id == 0 ? this.lastName.compareTo(other.lastName) : id;
-    }
+    // public static Comparator<Person> PersonComparator = new Comparator<Person>() {
+
+    //     public int compare(Person p1, Person p2) {
+    //         String PersonIndex1 = p1.getIndex().toUpperCase();
+    //         String PersonIndex2 = p2.getIndex().toUpperCase();
+
+    //         return PersonIndex1.compareTo(PersonIndex2);
+    //     }
+    // };
+
+    // @Override
+    // public int compareTo(Person other){
+    //     String compareiId = ((Person)other).getIndex();
+    //     return (this.index - compareiId);
+    // }
 
 
 

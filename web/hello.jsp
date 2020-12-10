@@ -65,18 +65,6 @@ table, th, td {
                 <th>${testPerson[loop.index].getLastName()}</th>
                 <th>${testPerson[loop.index].getIndex()}</th>
         </c:forEach>
-
-        <c:forEach items="${SortedSet}" var="current">
-            <tr>
-                <td>
-                    <c:out value="${current.getFirstName()}"/>
-                    <c:out value="${current.getLastName()}"/>
-                    <c:out value="${current.getIndex()}"/>
-                </td>
-            </tr>
-        </c:forEach>
-
-        <c:out value="${SortedSet}"/>
     </table>
 </body>
 </html>
