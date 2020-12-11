@@ -26,4 +26,11 @@
         <url-pattern>/ReverseServlet</url-pattern>
     </servlet-mapping>
 
+    <resource-ref>
+        <description>my connection</description>
+        <res-ref-name>jdbc/PollDatasource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+
 </web-app> 
