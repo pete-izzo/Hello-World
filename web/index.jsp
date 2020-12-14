@@ -83,5 +83,23 @@
 
 
     </body>
-  </html> 
+  </html>
+  
+  <!--
+
+
+    TODO:
+
+    have text fields send info to db
+
+    reads
+
+    hello displays db contents
+
+    server.xml towrds top put db info
+
+    servlett call 
+
+    class driver manager
+  -->
   

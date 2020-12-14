@@ -19,6 +19,7 @@
     <servlet>
         <servlet-name>ReverseServlet</servlet-name>
         <servlet-class>examples.ReverseServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
     </servlet>
 
     <servlet-mapping>
