@@ -65,6 +65,21 @@ table, th, td {
                 <th>${testPerson[loop.index].getLastName()}</th>
                 <th>${testPerson[loop.index].getIndex()}</th>
         </c:forEach>
+
+        <tr>
+            <th>Usernames</th>
+            <th>Passwords</th>
+        </tr>
+
+        <c:forEach var="row" items="${testDBout}">
+            <tr>
+                <td><c:out value="${row.userid}"/></td>
+                <td><c:out value="${row.passwd_digest}"/></td>
+            </tr>
+
+        </c:forEach>
     </table>
+
+    <c:out value="${testDBout}"/>
 </body>
 </html>

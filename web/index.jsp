@@ -30,7 +30,7 @@
     <br />
 
 
-    <sql:setDataSource url="jdbc:derby:C:\Users\pizzo\db-derby-10.14.2.0-bin\bin\NewDBTest" var="mydb" driver="org.apache.derby.jdbc.EmbeddedDriver"/>
+    <!-- <sql:setDataSource url="jdbc:derby:C:\Users\pizzo\db-derby-10.14.2.0-bin\bin\NewDBTest" var="mydb" driver="org.apache.derby.jdbc.EmbeddedDriver"/>
         <sql:query dataSource="${mydb}" var="result">
             SELECT * FROM USERS
         </sql:query>
@@ -46,14 +46,14 @@
               <td><c:out value="${row.passwd_digest}"/></td>
           </tr>
           </c:forEach>
-      </table>
-    <!-- <form action="ReverseServlet" method="POST"> -->
-      <!-- <h3>Please enter any text:</h3>
+      </table> -->
+    <form action="ReverseServlet" method="POST">
+      <h3>Please enter any text:</h3>
       <input type="text" name="testText" id="testText">
       <br>
-      <br>  -->
-      <!-- <h3>Please enter names:</h3> -->
-      <!-- <label for="name5">Name 5:</label><br>
+      <br>
+      <h3>Please enter names:</h3>
+      <label for="name5">Name 5:</label><br>
       <input type="text" required placeholder="Firstname Lastname" name="name5" id="name5">
       <br> 
       <label for="name3">Name 3:</label><br>
@@ -78,8 +78,8 @@
       <input type="text" required placeholder="Firstname Lastname" name="name7" id="name7">
       <br>
       
-      <input type="submit" value="Submit">  -->
-    <!-- </form> -->
+      <input type="submit" value="Submit"> 
+    </form>
 
 
     </body>
