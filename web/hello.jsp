@@ -71,12 +71,11 @@ table, th, td {
             <th>Passwords</th>
         </tr>
 
-        <c:forEach begin="0" end="${testDB.size()}" varStatus="loop">
-            <tr>
-                <th>${testDB[loop.index]}</th>
+        <c:forEach items="${testDB}" var="element">
+            <li>${element}</li>
         </c:forEach>
     </table>
 
-    <c:out value="${testDBout}"/> -->
+     <c:out value="${testDB}"/>
 </body>
 </html>

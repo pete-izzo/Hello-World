@@ -121,6 +121,9 @@ public class ReverseServlet extends HttpServlet {
          *  Test DB stuff
          *  //////////////////////////////////////
          */
+        
+        
+        // Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 
         String dbURL ="java:comp/env/jdbc/NewDBTest";
 
@@ -227,19 +230,20 @@ public class ReverseServlet extends HttpServlet {
             String[] testNum = fieldName.split("e");
             try {
                 Statement st = null;
-                st = con.createStatement();
-                st.execute("insert into 'users' (userid) values ('" + fieldValue + "')");
-                st.close();
                 Context ctx = new InitialContext();
                 DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/firstDB");
     
                 con = ds.getConnection();
+
+                st = con.createStatement();
+                st.execute("insert into 'users' (userid) values ('" + fieldValue + "')");
+                st.close();
                 stmt = con.createStatement();
         
                 rs = stmt.executeQuery("SELECT * FROM USERS");
 
                 while(rs.next()) {
-                    testDBOutput.add(rs.getString(1));
+                    testDBOutput.add(rs.getString(0));
                 }
 
                 
