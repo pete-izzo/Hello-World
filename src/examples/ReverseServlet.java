@@ -124,99 +124,124 @@ public class ReverseServlet extends HttpServlet {
 
         String dbURL ="jdbc:derby:C:\\Users\\pizzo\\db-derby-10.14.2.0-bin\\bin\\NewDBTest";
 
-        String tableName = "users";
-
-        insertUsers("test guy");
-        selectUsers();
-        shutdown();
-
-        try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-            conn = DriverManager.getConnection(dbURL);
-        } catch (Exception except) {
-            except.printStackTrace();
-        }
-
-        private static void insertUsers(String userID){
-            try {
-                stmt = conn.createStatement();
-                stmt.execute("insert into " + tableName + " values (" + userID + "')'");
-                stmt.close();
-            } catch (SQLException sqlExcept) {
-                sqlExcept.printStackTrace();
-            }
-        }
-
-        private static void selectUsers() {
-            try {
-                stmt = conn.createStatement();
-                ResultSet results stmt.executeQuery("select * from " + tableName);
-                resultSetMetaData rsmd = results.getMetaData();
-                int numberCols = rsmd.getColumnCount();
-                
-
-                while(results.next()) {
-                    String userID = results.getString(1);
-                    String password = results.getString(2);
-                }
-                results.close();
-                stmt.close();
-            }
-            catch (SQLException sqlExcept) {
-                sqlExcept.printStackTrace();
-            }
-        }
-
-        private static void shutdown() {
-            try {
-                if(stmt != null) {
-                    stmt.close();
-                }
-                if(conn != null) {
-                    DriverManager.getConnection(dbURL + ";shutdown=true");
-                    conn.close();
-                }
-            }
-            catch (SQLException sqlExcept) {
-
-            }
-        }
-
+        String driver = "org.apache.derby.jdbc.EmbeddedDriver";
 
         // try {
-        //     Context ctx = new InitialContext();
-        //     DataSource ds = (DataSource) ctx.lookup("jdbc:derby:C:\\Users\\pizzo\\db-derby-10.14.2.0-bin\\bin\\NewDBTest");
-        //     ds.getConnection();
-        //     st = con.createStatement();
-    
-        //     rs = st.executeQuery("SELECT * FROM USERS");
+        //     Class.forName(driver);
+        // } catch(java.lang.ClassNotFoundException e) {
+        //     e.printStackTrace();
+        // }
 
-        //     session.setAttribute("testDBout", rs);
+        // try (Connection connection = DriverManager.getConnection(dbURL);){
+
+        // } catch (SQLException sqlExcept) {
+        //     sqlExcept.printStackTrace();
+        // }
+        // String tableName = "users";
+
+        // insertUsers("test guy");
+        // selectUsers();
+        // shutdown();
+
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        // try {
+        //     Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+        //     conn = DriverManager.getConnection(dbURL);
+        // } catch (Exception except) {
+        //     except.printStackTrace();
+        // }
+
+        // private static void insertUsers(String userID){
+        //     try {
+        //         stmt = conn.createStatement();
+        //         stmt.execute("insert into " + tableName + " values (" + userID + "')'");
+        //         stmt.close();
+        //     } catch (SQLException sqlExcept) {
+        //         sqlExcept.printStackTrace();
+        //     }
+        // }
+
+        // private static void selectUsers() {
+        //     try {
+        //         stmt = conn.createStatement();
+        //         ResultSet results stmt.executeQuery("select * from " + tableName);
+        //         resultSetMetaData rsmd = results.getMetaData();
+        //         int numberCols = rsmd.getColumnCount();
+                
+
+        //         while(results.next()) {
+        //             String userID = results.getString(1);
+        //             String password = results.getString(2);
+        //         }
+        //         results.close();
+        //         stmt.close();
+        //     }
+        //     catch (SQLException sqlExcept) {
+        //         sqlExcept.printStackTrace();
+        //     }
+        // }
+
+        // private static void shutdown() {
+        //     try {
+        //         if(stmt != null) {
+        //             stmt.close();
+        //         }
+        //         if(conn != null) {
+        //             DriverManager.getConnection(dbURL + ";shutdown=true");
+        //             conn.close();
+        //         }
+        //     }
+        //     catch (SQLException sqlExcept) {
+
+        //     }
+        // }
+
+        ArrayList<Object> testDBOutput = new ArrayList<Object>();
+
+
+        try {
+            Context ctx = new InitialContext();
+            DataSource ds = (DataSource) ctx.lookup(dbURL);
+
+            con = ds.getConnection();
+            stmt = con.createStatement();
+    
+            rs = stmt.executeQuery("SELECT * FROM users");
+
+
+
+
+            while (rs.next()) {
+                testDBOutput.add(rs.getString(1));
+            }
 
             
 
 
     
-        // } catch (NamingException | SQLException ex) {
+        } catch (NamingException | SQLException ex) {
 
-        //     Logger lgr = Logger.getLogger(ReverseServlet.class.getName());
-        //     lgr.log(Level.SEVERE, ex.getMessage(), ex);
-        // } finally {
-        //     try {
-        //         if(rs != null) {
-        //             rs.close();
-        //         }
-        //         if(con != null) {
-        //             con.close();
-        //         }
+            Logger lgr = Logger.getLogger(ReverseServlet.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        } finally {
+            try {
+                if(rs != null) {
+                    rs.close();
+                }
+                if(con != null) {
+                    con.close();
+                }
 
 
     
-        //     }catch (SQLException ex) {
-        //         Logger lgr = Logger.getLogger(ReverseServlet.class.getName());
-        //             lgr.log(Level.WARNING, ex.getMessage(), ex);
-        //     }
-        // } 
+            }catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(ReverseServlet.class.getName());
+                    lgr.log(Level.WARNING, ex.getMessage(), ex);
+            }
+        } 
 
 
 
@@ -239,6 +264,14 @@ public class ReverseServlet extends HttpServlet {
             String fieldValue = request.getParameter(fieldName);
             Person person = new Person();
             String[] testNum = fieldName.split("e");
+            // try {
+            //     Statement st = null;
+            //     st = con.createStatement();
+            //     st.execute("insert into 'users' (userid) values ('" + fieldValue + "')");
+            //     st.close();
+            // } catch (SQLException sqlExcept) {
+            //     sqlExcept.printStackTrace();
+            // }
             //int thing = Integer.parseInt();
 
             String[] result = fieldValue.split(" ");
@@ -246,6 +279,9 @@ public class ReverseServlet extends HttpServlet {
             person.setLastName(result[1]);
             person.setIndex(testNum[1]);
             names.add(person);
+
+            
+            
             //names.add(person);
 
             // if(fieldName.equals("name" + strID)){
@@ -293,6 +329,8 @@ public class ReverseServlet extends HttpServlet {
         });
 
         session.setAttribute("testPerson", names);
+
+        session.setAttribute("testDB", testDBOutput);
 
 
         //session.setAttribute("testPerson", personSet);
