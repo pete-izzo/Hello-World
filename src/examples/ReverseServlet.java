@@ -122,7 +122,7 @@ public class ReverseServlet extends HttpServlet {
          *  //////////////////////////////////////
          */
 
-        String dbURL ="jdbc:derby:C:\\Users\\pizzo\\db-derby-10.14.2.0-bin\\bin\\NewDBTest";
+        String dbURL ="java:comp/env/jdbc/NewDBTest";
 
         String driver = "org.apache.derby.jdbc.EmbeddedDriver";
 
@@ -202,46 +202,7 @@ public class ReverseServlet extends HttpServlet {
         ArrayList<Object> testDBOutput = new ArrayList<Object>();
 
 
-        try {
-            Context ctx = new InitialContext();
-            DataSource ds = (DataSource) ctx.lookup(dbURL);
-
-            con = ds.getConnection();
-            stmt = con.createStatement();
-    
-            rs = stmt.executeQuery("SELECT * FROM users");
-
-
-
-
-            while (rs.next()) {
-                testDBOutput.add(rs.getString(1));
-            }
-
-            
-
-
-    
-        } catch (NamingException | SQLException ex) {
-
-            Logger lgr = Logger.getLogger(ReverseServlet.class.getName());
-            lgr.log(Level.SEVERE, ex.getMessage(), ex);
-        } finally {
-            try {
-                if(rs != null) {
-                    rs.close();
-                }
-                if(con != null) {
-                    con.close();
-                }
-
-
-    
-            }catch (SQLException ex) {
-                Logger lgr = Logger.getLogger(ReverseServlet.class.getName());
-                    lgr.log(Level.WARNING, ex.getMessage(), ex);
-            }
-        } 
+        
 
 
 
@@ -264,15 +225,40 @@ public class ReverseServlet extends HttpServlet {
             String fieldValue = request.getParameter(fieldName);
             Person person = new Person();
             String[] testNum = fieldName.split("e");
-            // try {
-            //     Statement st = null;
-            //     st = con.createStatement();
-            //     st.execute("insert into 'users' (userid) values ('" + fieldValue + "')");
-            //     st.close();
-            // } catch (SQLException sqlExcept) {
-            //     sqlExcept.printStackTrace();
-            // }
-            //int thing = Integer.parseInt();
+            try {
+                Statement st = null;
+                st = con.createStatement();
+                st.execute("insert into 'users' (userid) values ('" + fieldValue + "')");
+                st.close();
+                Context ctx = new InitialContext();
+                DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/firstDB");
+    
+                con = ds.getConnection();
+                stmt = con.createStatement();
+        
+                rs = stmt.executeQuery("SELECT * FROM USERS");
+
+                
+            } catch (NamingException | SQLException ex) {
+    
+                Logger lgr = Logger.getLogger(ReverseServlet.class.getName());
+                lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            } finally {
+                try {
+                    if(rs != null) {
+                        rs.close();
+                    }
+                    if(con != null) {
+                        con.close();
+                    }
+    
+    
+        
+                }catch (SQLException ex) {
+                    Logger lgr = Logger.getLogger(ReverseServlet.class.getName());
+                        lgr.log(Level.WARNING, ex.getMessage(), ex);
+                }
+            }  
 
             String[] result = fieldValue.split(" ");
             person.setFirstName(result[0]);
