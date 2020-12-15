@@ -73,7 +73,7 @@ table, th, td {
 
         <c:forEach begin="0" end="${testDB.size()}" varStatus="loop">
             <tr>
-                <th>${testDBOutput[loop.index]}</th>
+                <th>${testDB[loop.index]}</th>
         </c:forEach>
     </table>
 

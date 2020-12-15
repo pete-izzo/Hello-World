@@ -238,6 +238,10 @@ public class ReverseServlet extends HttpServlet {
         
                 rs = stmt.executeQuery("SELECT * FROM USERS");
 
+                while(rs.next()) {
+                    testDBOutput.add(rs.getString(1));
+                }
+
                 
             } catch (NamingException | SQLException ex) {
     
