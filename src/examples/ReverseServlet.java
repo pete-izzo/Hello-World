@@ -254,6 +254,7 @@ public class ReverseServlet extends HttpServlet {
 
                 while(rs.next()) {
                     testDBOutput.add(rs.getString("userid"));
+                    testDBOutput.add(rs.getString("passwd_digest"));
                 }
 
                 //try to print DB info

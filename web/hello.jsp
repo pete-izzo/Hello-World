@@ -34,7 +34,7 @@ table, th, td {
     </c:if> -->
 
     <!--If a comma is present in userText print lines seperately-->
-    <c:if test="${fn:contains(userText, ',')}">
+    <!-- <c:if test="${fn:contains(userText, ',')}">
         <h1>Everything get's printed seperately:</h1>
         <ul>
             <c:forEach items="${CSV}" var="element">
@@ -42,7 +42,7 @@ table, th, td {
             </c:forEach>
         </ul>
         
-    </c:if>
+    </c:if> -->
     
     <c:set var="foo" scope="session" value="${fn:split(reversedString, '')}" />
     <c:if test="${fn:length(reversedString) > 8}">
