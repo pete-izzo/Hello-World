@@ -228,6 +228,14 @@ public class ReverseServlet extends HttpServlet {
             String fieldValue = request.getParameter(fieldName);
             Person person = new Person();
             String[] testNum = fieldName.split("e");
+             
+
+            String[] result = fieldValue.split(" ");
+            person.setFirstName(result[0]);
+            person.setLastName(result[1]);
+            person.setIndex(testNum[1]);
+            names.add(person);
+
             try {
                 ctx = new InitialContext();
                 DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/firstDB");
@@ -235,6 +243,9 @@ public class ReverseServlet extends HttpServlet {
                 con = ds.getConnection();
 
                 stmt = con.createStatement();
+
+                stmt.execute("insert into users (userid, passwd_digest) values ('" + result[0] + "', '" + result[1] + "')");
+                
                 rs = stmt.executeQuery("select * from users");
                 // st.close();
                 // stmt = con.createStatement();
@@ -271,13 +282,32 @@ public class ReverseServlet extends HttpServlet {
                 }catch (NamingException error) {
                     error.printStackTrace();
                 }
-            }  
+            }
+            
+            // try {
+            //     rs = stmt.executeQuery("select * from users");
+            //     // st.close();
+            //     // stmt = con.createStatement();
+        
+            //     // rs = stmt.executeQuery("SELECT * FROM USERS");
 
-            String[] result = fieldValue.split(" ");
-            person.setFirstName(result[0]);
-            person.setLastName(result[1]);
-            person.setIndex(testNum[1]);
-            names.add(person);
+            //     while(rs.next()) {
+            //         testDBOutput.add(rs.getString("userid"));
+            //     }
+            // }  catch (SQLException ex) {
+            //     ex.printStackTrace();
+            // } finally {
+            //     try {
+            //         rs.close();
+    
+    
+        
+            //     }catch (SQLException error) {
+            //         error.printStackTrace();
+            //     }catch (NamingException error) {
+            //         error.printStackTrace();
+            //     }
+            // }
 
             
             
