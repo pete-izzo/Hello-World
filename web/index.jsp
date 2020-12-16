@@ -48,10 +48,10 @@
           </c:forEach>
       </table> */ %>
     <form action="ReverseServlet" method="POST">
-      <h3>Please enter any text:</h3>
+      <!-- <h3>Please enter any text:</h3>
       <input type="text" name="testText" id="testText">
       <br>
-      <br>
+      <br> -->
       <h3>Please enter names:</h3>
       <label for="name5">Name 5:</label><br>
       <input type="text" required placeholder="Firstname Lastname" name="name5" id="name5">

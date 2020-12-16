@@ -71,11 +71,11 @@ table, th, td {
             <th>Passwords</th>
         </tr>
 
-        <c:forEach items="${testDB}" var="element">
-            <li>${element}</li>
+        <c:forEach items="${testDB}" var="users">
+            <li>${users}</li>
         </c:forEach>
     </table>
 
-     <c:out value="${testDB}"/>
+     <c:out value="${DBProductInfo}"/>
 </body>
 </html>

@@ -145,7 +145,7 @@ public class ReverseServlet extends HttpServlet {
         // insertUsers("test guy");
         // selectUsers();
         // shutdown();
-
+        Context ctx = null;
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -229,42 +229,47 @@ public class ReverseServlet extends HttpServlet {
             Person person = new Person();
             String[] testNum = fieldName.split("e");
             try {
-                Statement st = null;
-                Context ctx = new InitialContext();
+                ctx = new InitialContext();
                 DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/firstDB");
     
                 con = ds.getConnection();
 
-                st = con.createStatement();
-                st.execute("insert into 'users' (userid) values ('" + fieldValue + "')");
-                st.close();
                 stmt = con.createStatement();
+                rs = stmt.executeQuery("select * from users");
+                // st.close();
+                // stmt = con.createStatement();
         
-                rs = stmt.executeQuery("SELECT * FROM USERS");
+                // rs = stmt.executeQuery("SELECT * FROM USERS");
 
                 while(rs.next()) {
-                    testDBOutput.add(rs.getString(0));
+                    testDBOutput.add(rs.getString("userid"));
                 }
 
+                //try to print DB info
+
+                String productInfo = con.getMetaData().getDatabaseProductName();
+
+                session.setAttribute("DBProductInfo", productInfo);
+
                 
-            } catch (NamingException | SQLException ex) {
+            } catch (NamingException ex) {
     
-                Logger lgr = Logger.getLogger(ReverseServlet.class.getName());
-                lgr.log(Level.SEVERE, ex.getMessage(), ex);
+                ex.printStackTrace();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             } finally {
                 try {
-                    if(rs != null) {
-                        rs.close();
-                    }
-                    if(con != null) {
-                        con.close();
-                    }
+                    rs.close();
+                    stmt.close();
+                    con.close();
+                    ctx.close();
     
     
         
-                }catch (SQLException ex) {
-                    Logger lgr = Logger.getLogger(ReverseServlet.class.getName());
-                        lgr.log(Level.WARNING, ex.getMessage(), ex);
+                }catch (SQLException error) {
+                    error.printStackTrace();
+                }catch (NamingException error) {
+                    error.printStackTrace();
                 }
             }  
 
