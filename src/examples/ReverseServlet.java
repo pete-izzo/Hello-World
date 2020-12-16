@@ -20,6 +20,7 @@ import static java.util.Comparator.comparing;
 import java.io.*;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -244,7 +245,20 @@ public class ReverseServlet extends HttpServlet {
 
                 stmt = con.createStatement();
 
-                stmt.execute("insert into users (userid, passwd_digest) values ('" + result[0] + "', '" + result[1] + "')");
+                String un = result[0];
+
+                String pw = result[1];
+
+                String secret_query = "insert into users (userid, passwd_digest) values (?,?)";
+
+                PreparedStatement preparedStatement = con.prepareStatement(secret_query);
+                preparedStatement.setString(1, un);
+                preparedStatement.setString(2, pw);
+
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
+
+                // stmt.execute("insert into users (userid, passwd_digest) values ('" + result[0] + "', '" + result[1] + "')");
                 
                 rs = stmt.executeQuery("select * from users");
                 // st.close();
